@@ -32,19 +32,19 @@ copy every thing in User model fillable and etc
 
 'guards' => [
 
-`        `'admin' => [
+    'admin' => [
 
-`            `'driver' => 'session',
+    'driver' => 'session',
 
-`            `'provider' => 'admins',
+    'provider' => 'admins',
 
 'providers' => [
 
-`        `'admins' => [
+    'admins' => [
+    
+    'driver' => 'eloquent',
 
-`            `'driver' => 'eloquent',
-
-`            `'model' => App\Models\Admin::class,
+    'model' => App\Models\Admin::class,
 
 `        `],
 ```
@@ -55,19 +55,19 @@ copy every thing in User model fillable and etc
 
 // **isAdminRoute()  is a helper function in app helper**
 
-`        `if(isAdminRoute()) {
+if(isAdminRoute()) {
 
-`            `config([
+    config([
 
-`                `'fortify.guard' => 'admin',
+        'fortify.guard' => 'admin',
+        
+        'fortify.prefix' => 'admin',
+        
+        'fortify.home' => 'admin/home'
 
-`                `'fortify.prefix' => 'admin',
+    ]);
 
-`                `'fortify.home' => 'admin/home'
-
-`            `]);
-
-`        `}
+}
 ```
 
 **#customizing-authentication-redirects**
@@ -76,7 +76,7 @@ copy every thing in User model fillable and etc
 
 ```php
 
-`        `$this->app->instance(LogoutResponse::class, new class                		implements LogoutResponse {
+`        `$this->app->instance(LogoutResponse::class, new class implements LogoutResponse {
 
 `            `public function toResponse($request)
 
