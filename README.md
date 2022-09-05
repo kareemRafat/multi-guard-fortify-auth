@@ -37,6 +37,8 @@ copy every thing in User model fillable and etc
     'driver' => 'session',
 
     'provider' => 'admins',
+    
+],
 
 'providers' => [
 
@@ -46,7 +48,7 @@ copy every thing in User model fillable and etc
 
     'model' => App\Models\Admin::class,
 
-`        `],
+],
 ```
 **5** - in **FortifyServiceProviders**
 
@@ -76,29 +78,28 @@ if(isAdminRoute()) {
 
 ```php
 
-`        `$this->app->instance(LogoutResponse::class, new class implements LogoutResponse {
+    $this->app->instance(LogoutResponse::class, new class implements LogoutResponse {
 
-`            `public function toResponse($request)
+        public function toResponse($request)
 
-`            `{
+            {
 
-`                `return isAdminRoute() ?  redirect('/admin/login') : redirect('/login');
+                return isAdminRoute() ?  redirect('/admin/login') : redirect('/login');
 
-`            `}
+            }
+    });
 
-`        `});
+    $this->app->instance(LoginResponse::class, new class implements LoginResponse {
 
-`        `$this->app->instance(LoginResponse::class, new class implements LoginResponse {
+        public function toResponse($request)
 
-`            `public function toResponse($request)
+            {
 
-`            `{
+                return isAdminRoute() ?  redirect('/admin/home') : redirect('/home');
 
-`                `return isAdminRoute() ?  redirect('/admin/home') : redirect('/home');
+            }
 
-`            `}
-
-`        `});
+    });
 ```
 **boot method**
 
@@ -110,15 +111,15 @@ add
 ```php
 Fortify::loginView(function () {
 
-`        `return isAdminRoute() ?  view('auth.login') : view('auth-users.login');
+    return isAdminRoute() ?  view('auth.login') : view('auth-users.login');
 
 });
 
-` `Fortify::registerView(function () {
+Fortify::registerView(function () {
 
-`             `return isAdminRoute() ?  view('auth.register') : view('auth-users.register');
+    return isAdminRoute() ?  view('auth.register') : view('auth-users.register');
 
-` `});
+});
 ```
 **6** - in **CreateNewUser**   --   namespace App\Actions\Fortify
 
@@ -130,17 +131,17 @@ isAdminRoute() ? Rule::unique(Admin::class) : Rule::unique(User::class),
 
 if(isAdminRoute()){
 
-`            `return Admin::create([
+    return Admin::create([
 
-`                `'name' => $input['name'],
+        'name' => $input['name'],
 
-`                `'email' => $input['email'],
+        'email' => $input['email'],
 
-`                `'password' => Hash::make($input['password']),
+        'password' => Hash::make($input['password']),
 
-`            `]);
+    ]);
 
-`        `}
+}
 ```
 **7 - fix** : when you try to access admin/login when admin is logged in** it redirect you to normal /home route 
 
@@ -151,18 +152,18 @@ we need to fix **guest middleware** and modify **handle** method in
 ```php
 foreach ($guards as $guard) {
 
-`            `if (Auth::guard($guard)->check()) {
+    if (Auth::guard($guard)->check()) {
 
-`                `**if($guard == 'admin') {**
+        **if($guard == 'admin') {**
 
-`                    `**return redirect('admin/home');**
+            **return redirect('admin/home');**
 
-`                `**}**
+        **}**
 
-`                `return redirect(RouteServiceProvider::HOME);
+        return redirect(RouteServiceProvider::HOME);
 
-`            `}
+    }
 
-`        `}
+}
 
 ```
