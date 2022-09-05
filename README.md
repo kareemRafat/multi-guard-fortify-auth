@@ -118,7 +118,7 @@ Fortify::loginView(function () {
 **6** - in **CreateNewUser**   --   namespace App\Actions\Fortify
 
 **in password validation rules** 
-
+```php
 isAdminRoute() ? Rule::unique(Admin::class) : Rule::unique(User::class),
 
 **add before user create**
@@ -159,10 +159,4 @@ foreach ($guards as $guard) {
 
 `        `}
 
-\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-video
-
-[https://www.youtube.com/watch?v=hEkPpGKy72Y&**t=463s**](https://www.youtube.com/watch?v=hEkPpGKy72Y&t=463s)
-
-and qirolab video
