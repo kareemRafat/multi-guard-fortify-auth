@@ -28,6 +28,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable
 copy every thing in User model fillable and etc
 
 **4** - **make admin guard**  in **config/auth.php**
+```php
 
 'guards' => [
 
@@ -46,10 +47,11 @@ copy every thing in User model fillable and etc
 `            `'model' => App\Models\Admin::class,
 
 `        `],
-
+```
 **5** - in **FortifyServiceProviders**
 
 **Register method** 
+```php
 
 // **isAdminRoute()  is a helper function in app helper**
 
@@ -66,10 +68,13 @@ copy every thing in User model fillable and etc
 `            `]);
 
 `        `}
+```
 
 **#customizing-authentication-redirects**
 
 <https://laravel.com/docs/9.x/fortify#customizing-authentication-redirects>
+
+```php
 
 `        `$this->app->instance(LogoutResponse::class, new class                		implements LogoutResponse {
 
@@ -94,15 +99,15 @@ copy every thing in User model fillable and etc
 `            `}
 
 `        `});
-
+```
 **boot method**
 
 add 
-
+```php
 **isAdminRoute() ? Fortify::viewPrefix('auth.') : Fortify::viewPrefix('auth-users.');**
-
+```
 `	`**or**
-
+```php
 Fortify::loginView(function () {
 
 `        `return isAdminRoute() ?  view('auth.login') : view('auth-users.login');
@@ -114,7 +119,7 @@ Fortify::loginView(function () {
 `             `return isAdminRoute() ?  view('auth.register') : view('auth-users.register');
 
 ` `});
-
+```
 **6** - in **CreateNewUser**   --   namespace App\Actions\Fortify
 
 **in password validation rules** 
@@ -136,13 +141,14 @@ if(isAdminRoute()){
 `            `]);
 
 `        `}
-
+```
 **7 - fix** : when you try to access admin/login when admin is logged in** it redirect you to normal /home route 
 
 we need to fix **guest middleware** and modify **handle** method in 
 
 **namespace App\Http\Middleware\RedirectIfAuthenticated;**
 
+```php
 foreach ($guards as $guard) {
 
 `            `if (Auth::guard($guard)->check()) {
@@ -159,4 +165,4 @@ foreach ($guards as $guard) {
 
 `        `}
 
-
+```
