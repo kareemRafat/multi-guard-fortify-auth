@@ -7,6 +7,8 @@
 
 Multi guard with laravel Forify
 
+hint ** Fortify Routes and route names in vendor\laravel\fortify\routes\routes.php **
+
 **1** - **get views blade structures from larave/ui**
 
 ` `and make to folder in views  
