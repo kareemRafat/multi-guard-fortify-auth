@@ -174,7 +174,7 @@ helpers.php file mentioned
     }
 ```
 
-to disable back button when logut
+to disable back button when logut --> first answer
 ```php
 https://stackoverflow.com/questions/59903552/laravel-logout-hittin-gthe-back-button-send-s-me-back-into-the-app-how-do-i-pr
 ```
