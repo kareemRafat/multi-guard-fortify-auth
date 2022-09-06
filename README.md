@@ -157,6 +157,8 @@ foreach ($guards as $guard) {
         **if($guard == 'admin') {**
 
             **return redirect('admin/home');**
+            OR
+            **return redirect()->route('login');**
 
         **}**
 
