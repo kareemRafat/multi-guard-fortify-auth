@@ -167,3 +167,9 @@ foreach ($guards as $guard) {
 }
 
 ```
+helpers.php file mentioned 
+```php
+    function isAdminRoute(){
+        return request()->is('admin/*') || request()->is('admin') ? true : false ;
+    }
+```
