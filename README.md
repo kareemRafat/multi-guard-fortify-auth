@@ -173,3 +173,8 @@ helpers.php file mentioned
         return request()->is('admin/*') || request()->is('admin') ? true : false ;
     }
 ```
+
+to disable back button when logut
+```php
+        https://stackoverflow.com/questions/59903552/laravel-logout-hittin-gthe-back-button-send-s-me-back-into-the-app-how-do-i-pr
+```
